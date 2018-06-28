@@ -10,6 +10,8 @@ scalaVersion := "2.12.6"
 
 sbtPlugin := true
 
+crossSbtVersions := Seq("0.13.17", "1.1.6")
+
 publishTo := {
     val isSnapshotValue = isSnapshot.value
     val nexus = "https://oss.sonatype.org/"
