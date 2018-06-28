@@ -1,5 +1,6 @@
 import Dependencies._
 import Publishing._
+import sbtrelease.ReleaseStateTransformations._
 
 name := "sbt-scapegoat"
 
@@ -28,5 +29,19 @@ publishMavenStyle := true
 publishArtifact in Test := false
 
 parallelExecution in Test := false
+
+releaseProcess := Seq[ReleaseStep](
+  checkSnapshotDependencies,
+  inquireVersions,
+  runClean,
+  releaseStepCommandAndRemaining("^test"),
+  setReleaseVersion,
+  commitReleaseVersion,
+  tagRelease,
+  releaseStepCommandAndRemaining("^publish"),
+  setNextVersion,
+  commitNextVersion,
+  pushChanges
+)
 
 sbtrelease.ReleasePlugin.autoImport.releaseCrossBuild := true
